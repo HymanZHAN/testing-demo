@@ -26,4 +26,13 @@ describe('AppComponent', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('h1')?.textContent).toContain('Hello, testing-demo');
   });
+
+  it('should render greetings in an h2 element', ()=>{
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+
+    const actualGreetings = compiled.querySelector('h2')?.textContent;
+    expect(actualGreetings).toContain('Hello, World!')
+  })
 });
