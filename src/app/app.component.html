@@ -7,8 +7,9 @@
       }}</span>
     </h1>
     <h2 class="text-lg font-mono">Hello, World!</h2>
+    <span>App Count: {{ appCount }}</span>
   </section>
   <section>
-    <app-counter />
+    <app-counter [(count)]="appCount" greeting="Let's write some tests!" />
   </section>
 </main>

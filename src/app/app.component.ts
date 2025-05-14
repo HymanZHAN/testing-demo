@@ -8,4 +8,5 @@ import { CounterComponent } from './counter/counter.component';
 })
 export class AppComponent {
   title = 'testing-demo';
+  appCount = 100;
 }

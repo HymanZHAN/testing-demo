@@ -1,9 +1,9 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  input,
-  model,
-  signal,
+  EventEmitter,
+  Input,
+  Output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -12,23 +12,25 @@ import { FormsModule } from '@angular/forms';
   imports: [FormsModule],
   template: `
     <div class="flex flex-col space-y-2 p-3 rounded-md border-2 border-primary">
-      <span class="italic font-serif">{{ hello() }}</span>
+      <span class="italic font-serif">{{ hello }}</span>
       <div class="flex items-center-safe space-x-4">
         <button (click)="decrement()" class="btn btn-primary">-</button>
-        @if (!isEditMode()) {
+        @if (!isEditMode) {
           <span (dblclick)="toggleEditMode()">
             Current Count:
-            <span class="font-bold text-lg text-warning">{{ count() }}</span>
+            <span class="font-bold text-lg text-warning">{{ _count }}</span>
           </span>
         } @else {
-          <input type="number" [(ngModel)]="count" (blur)="toggleEditMode()" />
+          <input
+            type="number"
+            [(ngModel)]="_count"
+            (blur)="toggleEditMode()"
+            class="input w-32"
+          />
         }
         <button (click)="increment()" class="btn btn-primary">+</button>
       </div>
-      <button
-        (click)="count.set(0)"
-        class="mt-2 self-end btn btn-circle btn-error"
-      >
+      <button (click)="reset()" class="mt-2 self-end btn btn-circle btn-error">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -47,19 +49,32 @@ import { FormsModule } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CounterComponent {
-  count = model(0);
-  hello = input('Hi', { alias: 'greeting' });
-  isEditMode = signal(false);
+  _count = 0;
+  @Input() set count(value: number) {
+    this._count = value;
+  }
+  @Output() countChange = new EventEmitter<number>();
+
+  @Input({ alias: 'greeting' }) hello = 'Hi';
+
+  isEditMode = false;
 
   increment() {
-    this.count.update((c) => ++c);
+    this._count = this._count + 1;
+    this.countChange.emit(this._count);
   }
 
   decrement() {
-    this.count.update((c) => --c);
+    this._count = this._count - 1;
+    this.countChange.emit(this._count);
+  }
+
+  reset() {
+    this.count = 0;
+    this.countChange.emit(this._count);
   }
 
   toggleEditMode() {
-    this.isEditMode.update((m) => !m);
+    this.isEditMode = !this.isEditMode;
   }
 }
