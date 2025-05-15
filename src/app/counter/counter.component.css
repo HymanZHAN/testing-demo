@@ -1,0 +1,21 @@
+@reference '../../styles.css';
+
+.counter-container {
+  @apply flex flex-col space-y-2 p-3 rounded-md border-2 border-primary;
+}
+
+.greeting {
+  @apply italic font-serif;
+}
+
+.counter-row {
+  @apply flex items-center-safe space-x-4;
+}
+
+.counter-value {
+  @apply font-bold text-lg text-warning;
+}
+
+.reset-btn {
+  @apply mt-2 self-end btn btn-circle btn-error;
+}
