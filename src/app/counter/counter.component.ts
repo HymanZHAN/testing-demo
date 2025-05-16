@@ -36,7 +36,7 @@ import { StopIconComponent } from './stop-icon.component';
       </button>
     </div>
   `,
-  styleUrl:'./counter.component.css',
+  styleUrl: './counter.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CounterComponent {

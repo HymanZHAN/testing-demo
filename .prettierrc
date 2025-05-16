@@ -1,3 +1,14 @@
 {
-  "printWidth": 88
+  "printWidth": 88,
+  "plugins": ["prettier-plugin-tailwindcss", "prettier-plugin-organize-attributes"],
+  "attributeGroups": [
+    "^(id|name|type)$",
+    "$ANGULAR_STRUCTURAL_DIRECTIVE",
+    "$ANGULAR_TWO_WAY_BINDING",
+    "$ANGULAR_INPUT",
+    "$ANGULAR_OUTPUT",
+    "^class$",
+    "$DEFAULT",
+    "^aria-"
+  ]
 }
