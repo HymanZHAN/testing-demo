@@ -17,9 +17,8 @@ import { StopIconComponent } from './stop-icon.component';
       <div class="counter-row">
         <button (click)="decrement()" class="btn btn-primary">-</button>
         @if (!isEditMode) {
-          <span (dblclick)="toggleEditMode()">
-            Current Count:
-            <span class="counter-value">{{ _count }}</span>
+          <span (dblclick)="toggleEditMode()"
+            >Current Count:<span class="counter-value">{{ _count }}</span>
           </span>
         } @else {
           <input
