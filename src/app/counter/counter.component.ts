@@ -7,10 +7,11 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StopIconComponent } from './stop-icon.component';
+import { AutoFocusDirective } from '../shared/auto-focus.directive';
 
 @Component({
   selector: 'app-counter',
-  imports: [FormsModule, StopIconComponent],
+  imports: [FormsModule, StopIconComponent, AutoFocusDirective],
   template: `
     <div class="counter-container">
       <span class="greeting">{{ hello }}</span>
@@ -25,7 +26,9 @@ import { StopIconComponent } from './stop-icon.component';
             type="number"
             [(ngModel)]="_count"
             (blur)="toggleEditMode()"
+            (keyup.enter)="toggleEditMode()"
             class="input w-32"
+            appAutoFocus
           />
         }
         <button (click)="increment()" class="btn btn-primary">+</button>
@@ -66,5 +69,8 @@ export class CounterComponent {
 
   toggleEditMode() {
     this.isEditMode = !this.isEditMode;
+    if (!this.isEditMode) {
+      this.countChange.emit(this._count);
+    }
   }
 }
