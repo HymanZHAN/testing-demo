@@ -18,7 +18,7 @@ import { AutoFocusDirective } from '../shared/auto-focus.directive';
       <div class="counter-row">
         <button (click)="decrement()" class="btn btn-primary">-</button>
         @if (!isEditMode) {
-          <span (dblclick)="toggleEditMode()"
+          <span (dblclick)="toggleEditMode()" class="counter-text"
             >Current Count: <span class="counter-value">{{ _count }}</span>
           </span>
         } @else {
