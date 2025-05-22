@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CounterComponent } from './counter.component';
-import { ChangeDetectorRef } from '@angular/core';
 
 describe('CounterComponent', () => {
   let component: CounterComponent;
@@ -43,7 +42,7 @@ describe('CounterComponent', () => {
   });
 
   describe('interaction', () => {
-    it('should render increase the cout value when incremented', () => {
+    it('should increase the count value when incremented', () => {
       // Arrange
       const expCount = 1;
 
