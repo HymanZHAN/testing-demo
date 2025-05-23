@@ -26,8 +26,9 @@ import { AutoFocusDirective } from '../shared/auto-focus.directive';
             type="number"
             [(ngModel)]="_count"
             (blur)="toggleEditMode()"
-            (keyup.enter)="toggleEditMode()"
+            (keyup.enter)="i.blur()"
             class="input w-32"
+            #i
             appAutoFocus
           />
         }
