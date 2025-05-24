@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CounterComponent } from './counter.component';
+// import { CounterComponent } from './counter.component';
+import { SignalCounterComponent as CounterComponent } from './signal-counter.component';
 
 describe('CounterComponent', () => {
   let component: CounterComponent;
@@ -20,6 +21,7 @@ describe('CounterComponent', () => {
       const expCount = 0;
       // Act
       // Assert
+      // @ts-ignore
       expect(component._count).toEqual(expCount);
     });
 
@@ -50,6 +52,7 @@ describe('CounterComponent', () => {
       component.increment();
 
       // Assert
+      // @ts-ignore
       expect(component._count).toBe(expCount);
     });
 
@@ -61,6 +64,7 @@ describe('CounterComponent', () => {
       component.decrement();
 
       // Assert
+      // @ts-ignore
       expect(component._count).toBe(expCount);
     });
 
@@ -83,6 +87,7 @@ describe('CounterComponent', () => {
       // fixture.detectChanges();
 
       // Assert
+      // @ts-ignore
       expect(component._count).toEqual(200);
     });
   });
@@ -99,6 +104,7 @@ describe('CounterComponent', () => {
       fixture.detectChanges();
 
       // Assert
+      // @ts-ignore
       expect(component._count).toBe(expCount);
       expect(component.hello).toBe(expGreeting);
     });
@@ -106,6 +112,7 @@ describe('CounterComponent', () => {
     it('should output counter value update', () => {
       // Arrange
       let emittedCount = 0;
+      // @ts-ignore
       component.countChange.subscribe((val) => (emittedCount = val));
 
       // Act
