@@ -16,7 +16,9 @@ import { AutoFocusDirective } from '../shared/auto-focus.directive';
     <div class="counter-container">
       <span class="greeting">{{ hello }}</span>
       <div class="counter-row">
-        <button (click)="decrement()" class="btn btn-primary">-</button>
+        <button id="decrement-btn" (click)="decrement()" class="btn btn-primary">
+          -
+        </button>
         @if (!isEditMode) {
           <span (dblclick)="toggleEditMode()" class="counter-text"
             >Current Count: <span class="counter-value">{{ _count }}</span>
@@ -32,7 +34,9 @@ import { AutoFocusDirective } from '../shared/auto-focus.directive';
             appAutoFocus
           />
         }
-        <button (click)="increment()" class="btn btn-primary">+</button>
+        <button id="increment-btn" (click)="increment()" class="btn btn-primary">
+          +
+        </button>
       </div>
       <button (click)="reset()" class="reset-btn">
         <app-icon-stop />
