@@ -65,7 +65,7 @@ describe('CounterComponent', () => {
       expect(rendered?.textContent).toContain(expCount);
     });
 
-    fit('should allow manual edit of the counter', () => {
+    it('should allow manual edit of the counter', () => {
       // Arrange
       const counterSpan = compiled.querySelector('span.counter-text');
       const expCount = 200;
@@ -79,7 +79,7 @@ describe('CounterComponent', () => {
       const counterInput = compiled.querySelector('input') as HTMLInputElement;
       counterInput.valueAsNumber = expCount;
       counterInput.dispatchEvent(new Event('input'));
-      counterInput.dispatchEvent(new Event('blur'));
+      counterInput.blur();
       fixture.detectChanges();
 
       // Assert
@@ -166,13 +166,11 @@ describe('CounterComponent', () => {
       hostFixture.detectChanges();
 
       // Edit counter value
-      const counterInput = compiledHost.querySelector('input');
-      if (counterInput) {
-        counterInput.valueAsNumber = expCount;
-        counterInput.dispatchEvent(new Event('input'));
-        counterInput.dispatchEvent(new Event('blur'));
-        hostFixture.detectChanges();
-      }
+      const counterInput = compiledHost.querySelector('input') as HTMLInputElement;
+      counterInput.valueAsNumber = expCount;
+      counterInput.dispatchEvent(new Event('input'));
+      counterInput.blur();
+      fixture.detectChanges();
 
       // Assert
       expect(hostComponent.count).toBe(expCount);
