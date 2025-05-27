@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { CounterComponent } from './counter/counter.component';
+import { SignalCounterComponent } from './counter/signal-counter.component';
 
 @Component({
   selector: 'app-root',
-  imports: [CounterComponent],
+  imports: [SignalCounterComponent],
   templateUrl: './app.component.html',
 })
 export class AppComponent {

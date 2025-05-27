@@ -37,7 +37,7 @@ describe('CounterComponent', () => {
   });
 
   describe('interaction', () => {
-    it('should increase the count value when the increment button is clicked', () => {
+    it('should increase count when the increment button is clicked', () => {
       // Arrange
       const expCount = 1;
       const rendered = compiled.querySelector('.counter-text');
@@ -51,7 +51,7 @@ describe('CounterComponent', () => {
       expect(rendered?.textContent).toContain(expCount);
     });
 
-    it('should decrease the count value when decremented', () => {
+    it('should decrease count when the decrement button is clicked', () => {
       // Arrange
       const expCount = -1;
       const rendered = compiled.querySelector('.counter-text');
@@ -65,7 +65,7 @@ describe('CounterComponent', () => {
       expect(rendered?.textContent).toContain(expCount);
     });
 
-    it('should allow manual edit of the counter value', () => {
+    it('should allow manual edit of the counter', () => {
       // Arrange
       const counterSpan = compiled.querySelector('span.counter-text');
       const expCount = 200;
@@ -94,83 +94,88 @@ describe('CounterComponent', () => {
       imports: [CounterComponent],
       template: `<app-counter [(count)]="count" [greeting]="greeting" />`,
     })
-    class TestComponent {
-      count = 5;
-      greeting = 'Hello, World!';
+    class TestHost {
+      count = 0;
+      greeting = 'Hi';
     }
 
-    let testFixture: ComponentFixture<TestComponent>;
-    let testCompiled: HTMLElement;
-    let testComponent: TestComponent;
+    let hostFixture: ComponentFixture<TestHost>;
+    let compiledHost: HTMLElement;
+    let hostComponent: TestHost;
 
     beforeEach(() => {
-      testFixture = TestBed.createComponent(TestComponent);
-      testFixture.detectChanges();
-      testCompiled = testFixture.nativeElement;
-      testComponent = testFixture.componentInstance;
+      hostFixture = TestBed.createComponent(TestHost);
+      hostFixture.detectChanges();
+      compiledHost = hostFixture.nativeElement;
+      hostComponent = hostFixture.componentInstance;
     });
 
-    it('should accept input values', () => {
+    it('should react to input change', () => {
       // Arrange
-      // Act
-      const { greeting: expGreeting, count: expCount } = testComponent;
+      const expCount = 200;
+      const expGreeting = 'New Greetings';
       const expCountText = `Current Count: ${expCount}`;
 
+      // Act
+      hostComponent.count = expCount;
+      hostComponent.greeting = expGreeting;
+      hostFixture.detectChanges();
+
       // Assert
-      const actGreeting = testCompiled.querySelector('.greeting')?.textContent;
+      const actGreeting = compiledHost.querySelector('.greeting')?.textContent;
       expect(actGreeting).toBe(expGreeting);
 
-      const actCountText = testCompiled.querySelector('.counter-text')?.textContent;
+      const actCountText = compiledHost.querySelector('.counter-text')?.textContent;
       expect(actCountText).toContain(expCountText);
     });
 
-    it('should output counter value update when decremented', () => {
+    it('should output count update when decremented', () => {
       // Arrange
-      const initialCount = testComponent.count;
+      const initialCount = hostComponent.count;
 
       // Act
-      const incrementBtn = testCompiled.querySelector('#decrement-btn');
+      const incrementBtn = compiledHost.querySelector('#decrement-btn');
       incrementBtn?.dispatchEvent(new Event('click'));
-      testFixture.detectChanges();
+      hostFixture.detectChanges();
 
       // Assert
-      expect(testComponent.count).toBe(initialCount - 1);
+      expect(hostComponent.count).toBe(initialCount - 1);
     });
 
-    it('should output counter value update when incremented', () => {
+    it('should output count update when incremented', () => {
       // Arrange
-      const initialCount = testComponent.count;
+      const initialCount = hostComponent.count;
 
       // Act
-      const incrementBtn = testCompiled.querySelector('#increment-btn');
+      const incrementBtn = compiledHost.querySelector('#increment-btn');
       incrementBtn?.dispatchEvent(new Event('click'));
-      testFixture.detectChanges();
+      hostFixture.detectChanges();
 
       // Assert
-      expect(testComponent.count).toBe(initialCount + 1);
+      expect(hostComponent.count).toBe(initialCount + 1);
     });
 
-    it('should output counter value update when manually edited', () => {
+    it('should output count update when manually edited', () => {
       // Arrange
-      const counterSpan = testCompiled.querySelector('span.counter-text');
+      const counterSpan = compiledHost.querySelector('span.counter-text');
       const expCount = 200;
 
       // Act
       // Enter edit mode
       counterSpan?.dispatchEvent(new Event('dblclick'));
-      testFixture.detectChanges();
+      hostFixture.detectChanges();
 
       // Edit counter value
-      const counterInput = testCompiled.querySelector('input');
+      const counterInput = compiledHost.querySelector('input');
       if (counterInput) {
         counterInput.valueAsNumber = expCount;
         counterInput.dispatchEvent(new Event('input'));
         counterInput.dispatchEvent(new Event('blur'));
-        testFixture.detectChanges();
+        hostFixture.detectChanges();
       }
 
       // Assert
-      expect(testComponent.count).toBe(expCount);
+      expect(hostComponent.count).toBe(expCount);
     });
   });
 });

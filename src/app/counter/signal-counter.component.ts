@@ -20,15 +20,15 @@ import { AutoFocusDirective } from '../shared/auto-focus.directive';
           -
         </button>
         @if (!isEditMode()) {
-          <span (dblclick)="toggleEditMode()" class="counter-text"
+          <span (dblclick)="isEditMode.set(true)" class="counter-text"
             >Current Count: <span class="counter-value">{{ count() }}</span>
           </span>
         } @else {
           <input
             type="number"
             [(ngModel)]="count"
-            (blur)="toggleEditMode()"
-            (keyup.enter)="i.blur()"
+            (blur)="isEditMode.set(false)"
+            (keyup.enter)="isEditMode.set(false)"
             class="input w-32"
             #i
             appAutoFocus
@@ -62,9 +62,5 @@ export class SignalCounterComponent {
 
   reset() {
     this.count.set(0);
-  }
-
-  toggleEditMode() {
-    this.isEditMode.update((m) => !m);
   }
 }
