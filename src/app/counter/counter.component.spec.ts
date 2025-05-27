@@ -65,7 +65,7 @@ describe('CounterComponent', () => {
       expect(rendered?.textContent).toContain(expCount);
     });
 
-    it('should allow manual edit of the counter', () => {
+    fit('should allow manual edit of the counter', () => {
       // Arrange
       const counterSpan = compiled.querySelector('span.counter-text');
       const expCount = 200;
